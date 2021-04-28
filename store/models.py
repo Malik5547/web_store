@@ -5,6 +5,7 @@ from django.contrib.contenttypes.fields import GenericForeignKey
 
 User = get_user_model()
 
+
 class Category(models.Model):
 
     name = models.CharField(max_length=255, verbose_name='Category name')
@@ -19,7 +20,7 @@ class Product(models.Model):
     class Meta:
         abstract = True
 
-    category = models.ForeignKey('Category', verbose_name='Categor', on_delete=models.CASCADE)
+    category = models.ForeignKey('Category', verbose_name='Category', on_delete=models.CASCADE)
     title = models.CharField(max_length=255, verbose_name='Title')
     slug = models.SlugField(unique=True)
     image = models.ImageField(verbose_name='Image')
