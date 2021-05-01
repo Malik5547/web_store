@@ -5,7 +5,7 @@ from .models import Notebook, Smartphone
 
 
 def index(request):
-    return render(request, 'index.html')
+    return render(request, 'base.html')
 
 
 class ProductDetailView(DetailView):
