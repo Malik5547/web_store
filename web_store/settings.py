@@ -81,10 +81,10 @@ WSGI_APPLICATION = 'web_store.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'vhaxjbkh',
-        'USER': 'vhaxjbkh',
-        'PASSWORD': 'WomNpnI_9UHwNrTrUepu4ByklLNhMGdO',
-        'HOST': 'hattie.db.elephantsql.com',
+        'NAME': '',
+        'USER': '',
+        'PASSWORD': '',
+        'HOST': '',
     },
     'local': {
         'ENGINE': 'django.db.backends.postgresql',
