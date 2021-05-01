@@ -81,9 +81,16 @@ WSGI_APPLICATION = 'web_store.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'web_store',
-        'USER': 'postgres',
-        'PASSWORD': '8426',
+        'NAME': '',
+        'USER': '',
+        'PASSWORD': '',
+        'HOST': '',
+    },
+    'local': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': '',
+        'USER': '',
+        'PASSWORD': '',
         'HOST': '',
     }
 }
