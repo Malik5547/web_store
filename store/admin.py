@@ -8,6 +8,22 @@ from django.contrib import admin
 from .models import *
 
 
+class SmartphoneAdminForm(ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        instance = kwargs.get('instance')
+        if not instance.sd:
+            self.fields['sd_value_max'].widget.attrs.update({
+                'readonly': True,  'style': 'background: lightgray;'
+            })
+
+    def clean(self):
+        if not self.cleaned_data['sd']:
+            self.cleaned_data['sd_volume_max'] = None
+        return self.cleaned_data
+
+
 class NotebookAdminForm(ModelForm):
 
     def __init__(self, *args, **kwargs):
@@ -47,6 +63,9 @@ class SmartphoneCategoryChoiceField(forms.ModelChoiceField):
 
 
 class SmartphoneAdmin(admin.ModelAdmin):
+
+    change_form_template = 'admin.html'
+    forms = SmartphoneAdminForm
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if db_field.name == 'category':
