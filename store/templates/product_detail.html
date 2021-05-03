@@ -18,8 +18,15 @@
         <h3>{{ product.title }}</h3>
         <p>Price: {{ product.price }} $</p>
         <p>Description: {{ product.description }}</p>
-        <p>Specifications: </p>
+
     </div>
+
+    <p class="mt-4">Specifications: </p>
+    {% if product.category.slug == 'notebooks' %}
+        {% include 'notebook_specifications.html' %}
+    {% elif product.category.slug == 'smartphones' %}
+        {% include 'smartphone_specifications.html' %}
+    {% endif %}
 </div>
 
 

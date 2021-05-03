@@ -62,10 +62,11 @@ db.sqlite3
 db.sqlite3-journal
 media
 web_store/settings.py
+web_store/__pycache__/
 
 # Flask stuff:
 instance/
-.webassets-cache
+.webassets-cache__pycache__
 
 # Scrapy stuff:
 .scrapy
