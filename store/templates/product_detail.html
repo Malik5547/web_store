@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load specifications %}
 {% block content %}
 
 <nav aria-label="breadcrumb">
@@ -22,11 +22,8 @@
     </div>
 
     <p class="mt-4">Specifications: </p>
-    {% if product.category.slug == 'notebooks' %}
-        {% include 'notebook_specifications.html' %}
-    {% elif product.category.slug == 'smartphones' %}
-        {% include 'smartphone_specifications.html' %}
-    {% endif %}
+    {{ product|product_spec }}
+
 </div>
 
 
