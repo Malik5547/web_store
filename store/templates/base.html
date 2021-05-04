@@ -41,7 +41,7 @@
                     <div class="list-group">
                         {% for category in categories %}
 
-                        <a class="list-group-item" href="#!">{{ category.name }} ({{ category.count }})</a>
+                        <a class="list-group-item" href="{{ category.url }}">{{ category.name }} ({{ category.count }})</a>
 
                         {% endfor %}
                     </div>
