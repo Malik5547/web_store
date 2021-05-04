@@ -1,11 +1,12 @@
 from django.shortcuts import render, HttpResponse
 from django.views.generic.detail import DetailView
 
-from .models import Notebook, Smartphone
+from .models import Notebook, Smartphone, Category
 
 
 def index(request):
-    return render(request, 'base.html')
+    categories = Category.object.get_categories_for_left_sidebar()
+    return render(request, 'base.html', {'categories': categories})
 
 
 class ProductDetailView(DetailView):
