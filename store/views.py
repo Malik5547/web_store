@@ -1,7 +1,7 @@
 from django.shortcuts import render, HttpResponse
 from django.views.generic.detail import DetailView, View
 
-from .models import Notebook, Smartphone, Category
+from .models import Notebook, Smartphone, Category, LatestProducts, Cart, Customer
 from .mixins import CategoryDetailMixin
 
 
@@ -9,7 +9,15 @@ class Base(View):
 
     def get(self, request, *args, **kwargs):
         categories = Category.objects.get_categories_for_left_sidebar()
-        return render(request, 'base.html', {'categories': categories})
+        products = LatestProducts.objects.get_products_for_main_page(
+            'notebook', 'smartphone',
+        )
+        context = {
+            'categories': categories,
+            'products': products,
+        }
+        return render(request, 'base.html', context)
+
 
 
 class ProductDetailView(CategoryDetailMixin, DetailView):
@@ -37,3 +45,15 @@ class CategoryDetailView(CategoryDetailMixin, DetailView):
     template_name = 'category_detail.html'
     slug_url_kwarg = 'slug'
 
+
+class CartView(View):
+
+    def get(self, request, *args, **kwargs):
+        customer = Customer.objects.get(user=request.user)
+        cart = Cart.objects.get(owner=customer)
+        categories = Category.objects.get_categories_for_left_sidebar()
+        context = {
+            'cart': cart,
+            'categories': categories,
+        }
+        return render(request, 'cart.html', context)

@@ -17,7 +17,7 @@ def get_models_for_count(*model_names):
 
 
 def get_product_url(obj, viewname):
-    ct_model = obj.__class__.meta.model_name
+    ct_model = obj.__class__._meta.model_name
     return reverse(viewname, kwargs={'ct_model': ct_model, 'slug': obj.slug})
 
 
@@ -35,6 +35,7 @@ class MaxImageSizeErrorException(Exception):
 
 class LatestProductsManager:
 
+    @staticmethod
     def get_products_for_main_page(*args, **kwargs):
         with_respect_to = kwargs.get('with_respect_to')
         products = []
@@ -45,10 +46,10 @@ class LatestProductsManager:
         if with_respect_to:
             ct_model = ContentType.objects.filter(model=with_respect_to)
             if ct_model.exists():
-                return sorted(
-                    products, key=lambda x: x.__class__._meta.model_name.startswith(with_respect_to), reverse=True
-                )
-
+                if with_respect_to in args:
+                    return sorted(
+                        products, key=lambda x: x.__class__._meta.model_name.startswith(with_respect_to), reverse=True
+                    )
         return products
 
 
@@ -176,7 +177,7 @@ class CartProduct(models.Model):
     total_price = models.DecimalField(max_digits=9, decimal_places=2, verbose_name='Total price')
 
     def __str__(self):
-        return 'Cart product: {}'.format(self.product.title)
+        return 'Cart product: {}'.format(self.content_object.title)
 
 
 class Cart(models.Model):
