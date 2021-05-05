@@ -181,7 +181,8 @@ class CartProduct(models.Model):
 
     def save(self, *args, **kwargs):
         self.total_price = self.qty * self.content_object.price
-        super().save(*args, *kwargs)
+        super().save(*args, **kwargs)
+
 
 
 class Cart(models.Model):
@@ -195,6 +196,15 @@ class Cart(models.Model):
 
     def __str__(self):
         return str(self.id)
+
+    def save(self, *args, **kwargs):
+        cart_data = self.products.aggregate(models.Sum('total_price'), models.Count('id'))
+        if cart_data.get('total_price__sum'):
+            self.total_price = cart_data['total_price__sum']
+        else:
+            self.total_price = 0
+        self.total_products = cart_data['id__count']
+        super().save(*args, **kwargs)
 
 
 class Specification(models.Model):
