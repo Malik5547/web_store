@@ -179,6 +179,10 @@ class CartProduct(models.Model):
     def __str__(self):
         return 'Cart product: {}'.format(self.content_object.title)
 
+    def save(self, *args, **kwargs):
+        self.total_price = self.qty * self.content_object.price
+        super().save(*args, *kwargs)
+
 
 class Cart(models.Model):
 
