@@ -26,11 +26,12 @@ class CartMixin(View):
         if request.user.is_authenticated:
             customer = Customer.objects.filter(user=request.user).first()
             if not customer:
-                customer = Customer.objects.create(user=request.user)
+                customer = Customer.objects.create(
+                    user=request.user
+                )
             cart = Cart.objects.filter(owner=customer, in_order=False).first()
             if not cart:
                 cart = Cart.objects.create(owner=customer)
-
         else:
             cart = Cart.objects.filter(for_anonymous_user=True).first()
             if not cart:

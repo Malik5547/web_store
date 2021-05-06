@@ -201,15 +201,6 @@ class Cart(models.Model):
     def __str__(self):
         return str(self.id)
 
-    def save(self, *args, **kwargs):
-        cart_data = self.products.aggregate(models.Sum('total_price'), models.Count('id'))
-        if cart_data.get('total_price__sum'):
-            self.total_price = cart_data['total_price__sum']
-        else:
-            self.total_price = 0
-        self.total_products = cart_data['id__count']
-        super().save(*args, **kwargs)
-
 
 class Specification(models.Model):
 
@@ -258,6 +249,7 @@ class Order(models.Model):
     first_name = models.CharField(max_length=255, verbose_name='First name')
     last_name = models.CharField(max_length=255, verbose_name='Last name')
     phone = models.CharField(max_length=255, verbose_name='Phone')
+    cart = models.ForeignKey(Cart, verbose_name='Cart', on_delete=models.CASCADE, null=True, blank=True)
     address = models.CharField(max_length=255, verbose_name='Address', null=True, blank=True)
     status = models.CharField(
         max_length=100,
