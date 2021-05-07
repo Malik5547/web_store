@@ -61,8 +61,8 @@ local_settings.py
 db.sqlite3
 db.sqlite3-journal
 media
-web_store/settings.py
 web_store/__pycache__/
+web_store/local_db_settings.py
 
 # Flask stuff:
 instance/
