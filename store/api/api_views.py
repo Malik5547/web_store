@@ -1,14 +1,15 @@
-from rest_framework.generics import ListAPIView, RetrieveAPIView
+from rest_framework.generics import RetrieveUpdateDestroyAPIView, RetrieveAPIView, ListCreateAPIView, ListAPIView
 from rest_framework.filters import SearchFilter
 
 from .serializers import CategorySerializer, SmartphoneSerializer
 from ..models import Category, Smartphone
 
 
-class CategoryListAPIView(ListAPIView):
+class CategoryListCreateAPIView(ListCreateAPIView, RetrieveUpdateDestroyAPIView):
 
     serializer_class = CategorySerializer
     queryset = Category.objects.all()
+    lookup_field = 'id'
 
 
 class SmartphoneListAPIView(ListAPIView):

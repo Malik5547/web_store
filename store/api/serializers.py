@@ -40,3 +40,7 @@ class SmartphoneSerializer(BaseProductSerializer, serializers.ModelSerializer):
     class Meta:
         model = Smartphone
         fields = '__all__'
+
+
+
+
