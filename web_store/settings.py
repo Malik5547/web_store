@@ -14,6 +14,13 @@ import os
 import sys
 from pathlib import Path
 
+# Import local database settings
+try:
+    from .local_db_settings import LOCAL_DB_SETTINGS
+except ImportError:
+    pass
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -33,6 +40,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    # module apps
+    'crispy_forms',
     # Django apps
     'django.contrib.admin',
     'django.contrib.auth',
@@ -78,22 +87,15 @@ WSGI_APPLICATION = 'web_store.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': '',
-        'USER': '',
-        'PASSWORD': '',
-        'HOST': '',
-    },
-    'local': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': '',
-        'USER': '',
-        'PASSWORD': '',
-        'HOST': '',
+if LOCAL_DB_SETTINGS is not None:
+    DATABASES = LOCAL_DB_SETTINGS
+else:
+    DATABASES ={
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3l',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
     }
-}
 
 
 # Password validation
@@ -141,3 +143,5 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static_dev'),
 ]
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
