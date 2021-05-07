@@ -1,4 +1,4 @@
-from rest_framework.generics import ListAPIView
+from rest_framework.generics import ListAPIView, RetrieveAPIView
 from rest_framework.filters import SearchFilter
 
 from .serializers import CategorySerializer, SmartphoneSerializer
@@ -18,3 +18,9 @@ class SmartphoneListAPIView(ListAPIView):
     filter_backends = [SearchFilter]
     search_fields = ['title', 'price']
 
+
+class SmartphoneRetrieveAPIView(RetrieveAPIView):
+
+    serializer_class = SmartphoneSerializer
+    queryset = Smartphone.objects.all()
+    lookup_field = 'id'
