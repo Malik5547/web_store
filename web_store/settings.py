@@ -88,12 +88,12 @@ WSGI_APPLICATION = 'web_store.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-if LOCAL_DB_SETTINGS is not None:
+if LOCAL_DB_SETTINGS is not None and ('test' not in sys.argv):
     DATABASES = LOCAL_DB_SETTINGS
 else:
     DATABASES ={
         'default': {
-            'ENGINE': 'django.db.backends.sqlite3l',
+            'ENGINE': 'django.db.backends.sqlite3',
             'NAME': BASE_DIR / 'db.sqlite3',
         }
     }
