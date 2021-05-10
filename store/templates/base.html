@@ -32,21 +32,24 @@
                         </li>
                         {% if not request.user.is_authenticated %}
                         <li>
-                            <a class="nav-link text-light" href="login">Log in</a>
+                            <a class="nav-link text-light" href="{% url 'login' %}">Log in</a>
                         </li>
                         <li>
-                            <a class="nav-link text-light" href="#">Sign in</a>
+                            <a class="nav-link text-light" href="{% url 'signup' %}">Sign up</a>
                         </li>
                         {% endif %}
+                        {% if request.user.is_authenticated %}
                         <li>
-                            {% if request.user.is_authenticated %}
                             <span class="navbar text text-light">
                                 Hello, <span class="badge">
                                 <a style="text-decoration: none; font-size:14px;" href="#">{{ request.user.username }}</a>
                             </span>
                             </span>
-                            {% endif %}
                         </li>
+                        <li>
+                            <a class="nav-link text-light" href="{% url 'logout' %}">Log out</a>
+                        </li>
+                        {% endif %}
                     </ul>
                     <ul class="navbar-nav  ml-auto ">
                         <li class="nav-item">
