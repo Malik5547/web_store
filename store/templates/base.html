@@ -42,7 +42,7 @@
                         <li>
                             <span class="navbar text text-light">
                                 Hello, <span class="badge">
-                                <a style="text-decoration: none; font-size:14px;" href="#">{{ request.user.username }}</a>
+                                <a style="text-decoration: none; font-size:14px;" href="{% url 'profile' %}">{{ request.user.username }}</a>
                             </span>
                             </span>
                         </li>
