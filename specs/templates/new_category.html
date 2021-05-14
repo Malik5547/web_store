@@ -1,0 +1,13 @@
+{% extends 'product_features.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+  <div class="col_md_12">
+    <form action="" method="POST">
+      {% csrf_token %}
+      {{ form|crispy }}
+      <input type="submit" class="btn btn-success" value="Create new category">
+    </form>
+  </div>
+
+{% endblock content %}
