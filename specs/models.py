@@ -9,7 +9,7 @@ class CategoryFeature(models.Model):
     unit = models.CharField(max_length=50, verbose_name='Measure unit', null=True, blank=True)
 
     class Meta:
-        unique_together = {'category', 'feature_name', 'feature_filter_name'}
+        unique_together = ('category', 'feature_name', 'feature_filter_name')
 
     def __str__(self):
         return f'{self.category.name} | {self.feature_name}'
@@ -35,5 +35,5 @@ class ProductFeatures(models.Model):
 
     def __str__(self):
         return f'Product - "{self.product.title}"' \
-               f'Feature - "{self.feature.name}"' \ 
+               f'Feature - "{self.feature.name}"' \
                f'Value - "{self.value}"'
